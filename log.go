@@ -51,6 +51,9 @@ func New(strLevel string, pathname string, flag int) (*Logger, error) {
 	var baseLogger *log.Logger
 	var baseFile *os.File
 	if pathname != "" {
+		if err := os.MkdirAll(pathname, os.ModePerm); err != nil {
+			return nil, err
+		}
 		now := time.Now()
 
 		filename := fmt.Sprintf("%d%02d%02d_%02d_%02d_%02d.log",
